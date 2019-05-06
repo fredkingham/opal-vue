@@ -6,3 +6,11 @@ https://medium.com/@rodrigosmaniotto/integrating-django-and-vuejs-with-vue-cli-3
 Except without material design (because I'm not a fan, other preferences are available).
 
 And with bootstrap (because I'm lazy).
+
+To run 
+`./manage.py runserver`
+and simultaneously
+```
+cd frontend
+npm run serve
+```
