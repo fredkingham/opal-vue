@@ -1,0 +1,7 @@
+{
+    "python.linting.flake8Path": "/Users/fredkingham/Scripts/ohcdev/django-vue/.direnv/python-3.7.2/bin/flake8",
+    "python.linting.pylintEnabled": false,
+    "python.linting.pep8Enabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true
+}
