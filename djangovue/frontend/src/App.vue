@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <DemographicsPanel msg="Welcome to Your Vue.js App"/>
+    <modals-container/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import DemographicsPanel from './components/subrecords/demographics/DemographicsPanel.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    DemographicsPanel
   }
 }
 </script>
