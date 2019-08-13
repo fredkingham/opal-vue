@@ -5,6 +5,7 @@
         Demographics
     </div>
     <div class="card-body text-left">
+      {{ formInstance.first_name }}
       <DemographicsDisplay></DemographicsDisplay>
     </div>
     </div>
@@ -14,13 +15,29 @@
 
 <script>
 import DemographicsDisplay from './DemographicsDisplay.vue'
-import DemographicsModal from './DemographicsModal.vue'
+import DemographicsForm from './DemographicsForm.vue'
+import SubrecordModal from '../../SubrecordModal.vue'
 
 export default {
   name: 'DemographicsPanel',
+  data: function(){
+      return {
+          formInstance: {},
+          formComponent: DemographicsForm,
+
+      }
+  },
   methods: {
     show () {
-        this.$modal.show(DemographicsModal)
+        this.$modal.show(
+            SubrecordModal,
+            {
+                SubrecordForm: this.formComponent,
+                modal_name: "Demographics",
+                formInstance: this.formInstance
+            },
+            {height: "auto"}
+        )
     },
     hide () {
         this.$modal.hide();

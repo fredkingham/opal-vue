@@ -18,3 +18,32 @@ Then run
 ```
 ./manage.py runserver
 ```
+
+
+so the theory is
+
+Every panel has a component.
+These are loaded somehow dynamically but at the moment are just declared.
+
+so we have
+patient list
+patient detail
+
+as 2 different components?
+how are we dealing with dates?
+how are we dealing with the frontend model?
+
+frontend model looks like...
+
+
+we keep the schema as is, we keep all end points
+we keep the field translator and item.makeCopy
+
+
+
+patient:
+  demographics:
+episode
+  diagnosis:
+
+1.

@@ -7,7 +7,10 @@ import VModal from 'vue-js-modal'
 import BootstrapVue from 'bootstrap-vue'
 
 Vue.use(BootstrapVue)
-Vue.use(VModal, { dynamic: true, injectModalsContainer: true })
+Vue.use(VModal, {
+  dynamic: true,
+  injectModalsContainer: true,
+})
 
 Vue.config.productionTip = false
 
