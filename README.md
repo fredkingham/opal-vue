@@ -40,10 +40,12 @@ we keep the schema as is, we keep all end points
 we keep the field translator and item.makeCopy
 
 
-
 patient:
   demographics:
 episode
   diagnosis:
 
-1.
+1. We want working panels that talk to the back end for
+   Demographics and Diagnosis
+
+
