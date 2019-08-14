@@ -7,11 +7,15 @@
 
 <script>
 import DemographicsPanel from './components/subrecords/demographics/DemographicsPanel.vue'
+import http from './opal/http.js'
 
 export default {
   name: 'app',
   components: {
     DemographicsPanel
+  },
+  data: function(){
+      http()
   }
 }
 </script>
