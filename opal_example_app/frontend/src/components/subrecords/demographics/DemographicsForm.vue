@@ -2,7 +2,6 @@
     <div class="row">
         <text-input v-model="formInstance.first_name" display-name="First name">
         </text-input>
-        hello {{ formInstance.first_name }}
     </div>
 </template>
 
@@ -11,9 +10,7 @@ import TextInput from '../../forms/TextInput.vue'
 
 export default {
   name: 'DemographicsForm',
-  data: function(){
-      return {formInstance: {"first_name": ""}}
-  },
+  props: ["formInstance"],
   components: {TextInput}
 }
 </script>

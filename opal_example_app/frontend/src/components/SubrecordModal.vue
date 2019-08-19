@@ -4,7 +4,11 @@
             <h5 class="modal-title">Demographics</h5>
         </template>
         <template v-slot:body>
-            <component :is="SubrecordForm" v-bind="{ formInstance: formInstance }"></component>
+            <component :is="SubrecordForm" :formInstance=formInstance></component>
+        </template>
+        <template v-slot:footer>
+            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" @click="$emit('close')">Close</button>
         </template>
     </ModalBase>
 </template>

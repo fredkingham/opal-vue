@@ -16,25 +16,26 @@
 import DemographicsDisplay from './DemographicsDisplay.vue'
 import DemographicsForm from './DemographicsForm.vue'
 import SubrecordModal from '../../SubrecordModal.vue'
+import _ from 'lodash'
 
 export default {
   name: 'DemographicsPanel',
   props: ["patient"],
   data: function(){
       return {
-          formInstance: {},
           formComponent: DemographicsForm,
           item: this.patient.demographics[0]
       }
   },
   methods: {
     show () {
+        var formInstance = _.cloneDeep(this.item);
         this.$modal.show(
             SubrecordModal,
             {
                 SubrecordForm: this.formComponent,
                 modal_name: "Demographics",
-                formInstance: this.formInstance
+                formInstance: formInstance
             },
             {height: "auto"}
         )
