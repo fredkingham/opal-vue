@@ -1,13 +1,18 @@
+
 <template>
   <div id="app">
-    <DemographicsPanel msg="Welcome to Your Vue.js App"/>
+    <div v-if="patient">
+      <DemographicsPanel :patient=patient />
+    </div>
     <modals-container/>
   </div>
 </template>
 
 <script>
+/* eslint-disable */
 import DemographicsPanel from './components/subrecords/demographics/DemographicsPanel.vue'
-import http from './opal/http.js'
+import Http from './opal/http.js'
+
 
 export default {
   name: 'app',
@@ -15,7 +20,20 @@ export default {
     DemographicsPanel
   },
   data: function(){
-      http()
+    var patient = null;
+    return {
+        patient: patient
+    }
+  },
+  created(){
+   var self = this;
+   var http = new Http("/");
+   http.getOne("patient", 1).then(function(x){
+    self.patient = x;
+    if(self.patient.detail == "Authentication credentials were not provided."){
+        alert('logged out');
+    }
+   });
   }
 }
 </script>

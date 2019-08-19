@@ -1,12 +1,11 @@
 <template>
-<div class="col-4">
+<div v-if="patient" class="col-4">
     <div class="card">
     <div class="card-header">
         Demographics
     </div>
     <div class="card-body text-left">
-      {{ formInstance.first_name }}
-      <DemographicsDisplay></DemographicsDisplay>
+      <DemographicsDisplay :item=item ></DemographicsDisplay>
     </div>
     </div>
     <button v-on:click="show()">Hello world</button>
@@ -20,11 +19,12 @@ import SubrecordModal from '../../SubrecordModal.vue'
 
 export default {
   name: 'DemographicsPanel',
+  props: ["patient"],
   data: function(){
       return {
           formInstance: {},
           formComponent: DemographicsForm,
-
+          item: this.patient.demographics[0]
       }
   },
   methods: {
