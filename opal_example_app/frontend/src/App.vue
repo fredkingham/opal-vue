@@ -3,6 +3,7 @@
   <div id="app">
     <div v-if="patient">
       <DemographicsPanel :patient=patient />
+      <DiagnosisPanel :episode=episode />
     </div>
     <modals-container/>
   </div>
@@ -11,16 +12,19 @@
 <script>
 /* eslint-disable */
 import DemographicsPanel from './components/subrecords/demographics/DemographicsPanel.vue'
+import DiagnosisPanel from './components/subrecords/diagnosis/DiagnosisPanel.vue'
 import Http from './opal/http.js'
 
 
 export default {
   name: 'app',
   components: {
-    DemographicsPanel
+    DemographicsPanel,
+    DiagnosisPanel
   },
   data: function(){
     var patient = null;
+    var episode = null;
     return {
         patient: patient
     }
@@ -30,6 +34,7 @@ export default {
    var http = new Http("/");
    http.getOne("patient", 1).then(function(x){
     self.patient = x;
+    self.episode = Object.values(x.episodes)[0]
     if(self.patient.detail == "Authentication credentials were not provided."){
         alert('logged out');
     }

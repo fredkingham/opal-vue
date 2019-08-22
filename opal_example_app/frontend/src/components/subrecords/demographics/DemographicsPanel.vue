@@ -1,5 +1,5 @@
 <template>
-<div v-if="patient" class="col-4">
+<div class="col-4">
     <div class="card">
     <div class="card-header">
         Demographics
@@ -7,8 +7,14 @@
     <div class="card-body text-left">
       <DemographicsDisplay :item=item ></DemographicsDisplay>
     </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm">
+                <button class="btn btn-primary" v-on:click="edit(item)">Edit</button>
+            </div>
+        </div>
     </div>
-    <button v-on:click="show()">Hello world</button>
+    </div>
 </div>
 </template>
 
@@ -16,6 +22,7 @@
 import DemographicsDisplay from './DemographicsDisplay.vue'
 import DemographicsForm from './DemographicsForm.vue'
 import SubrecordModal from '../../SubrecordModal.vue'
+import Http from '@/opal/http.js'
 import _ from 'lodash'
 
 export default {
@@ -24,24 +31,31 @@ export default {
   data: function(){
       return {
           formComponent: DemographicsForm,
-          item: this.patient.demographics[0]
+          item: this.patient.demographics[0],
+          modelName: "demographics"
       }
   },
   methods: {
-    show () {
-        var formInstance = _.cloneDeep(this.item);
+    edit (item) {
+        var formInstance = _.cloneDeep(item);
+        var panel = this;
         this.$modal.show(
             SubrecordModal,
             {
                 SubrecordForm: this.formComponent,
-                modal_name: "Demographics",
-                formInstance: formInstance
+                modalName: this.modelName,
+                formInstance: formInstance,
+                saveMethod: function(){
+                    var http = new Http();
+                    return http.save(panel.modelName, formInstance).then(function(x){
+                        Object.assign(panel.patient.demographics[0], x)
+                    });
+                }
             },
-            {height: "auto"}
+            {
+                height: "auto",
+            }
         )
-    },
-    hide () {
-        this.$modal.hide();
     }
   },
   components: {

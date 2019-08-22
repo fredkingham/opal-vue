@@ -7,6 +7,9 @@ import VModal from 'vue-js-modal'
 import BootstrapVue from 'bootstrap-vue'
 
 Vue.use(BootstrapVue)
+
+
+// Modal
 Vue.use(VModal, {
   dynamic: true,
   injectModalsContainer: true,
