@@ -1,8 +1,14 @@
 <template>
-<div class="col-4">
     <div class="card">
     <div class="card-header">
-        Demographics
+        <h4>
+            Demographics
+            <button class="float-right btn btn-link" v-on:click="edit(item)">
+                <h4>
+                <font-awesome-icon icon="pencil-alt" />
+                </h4>
+            </button>
+        </h4>
     </div>
     <div class="card-body text-left">
       <DemographicsDisplay :item=item ></DemographicsDisplay>
@@ -15,7 +21,6 @@
         </div>
     </div>
     </div>
-</div>
 </template>
 
 <script>

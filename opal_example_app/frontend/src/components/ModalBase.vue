@@ -7,9 +7,11 @@
         </slot>
       </div>
       <div class="modal-body">
+        <div class="container-fluid">
             <slot name="body">
                 <p>Modal body text goes here.</p>
             </slot>
+        </div>
       </div>
       <div class="modal-footer">
         <slot name="footer">

@@ -1,10 +1,14 @@
 
 <template>
-  <div id="app">
-    <div v-if="patient">
-      <DemographicsPanel :patient=patient />
-      <DiagnosisPanel :episode=episode />
-    </div>
+  <div id="app" class="container-fluid">
+      <div v-if="patient" class="row">
+          <div class="col-sm">
+            <DemographicsPanel :patient=patient />
+          </div>
+          <div class="col-sm">
+            <DiagnosisPanel :episode=episode />
+          </div>
+      </div>
     <modals-container/>
   </div>
 </template>

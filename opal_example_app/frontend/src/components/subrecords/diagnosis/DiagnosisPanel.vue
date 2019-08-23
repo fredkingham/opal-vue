@@ -1,13 +1,28 @@
 <template>
-<div class="col-4">
     <div class="card">
     <div class="card-header">
-        Diagnosis
+        <h4>Diagnosis
+            <button class="float-right btn btn-link" v-on:click="edit(item)">
+                <h4>
+                <font-awesome-icon icon="plus" />
+                </h4>
+            </button>
+        </h4>
     </div>
     <ul class="list-group list-group-flush">
         <li v-for="item in items" class="list-group-item" v-bind:key="item.id">
-        <DiagnosisDisplay :item=item ></DiagnosisDisplay>
-        <button class="btn btn-primary" v-on:click="edit(item)">Edit</button>
+          <div class="row">
+              <div class="col-md-9">
+                <DiagnosisDisplay :item=item ></DiagnosisDisplay>
+              </div>
+              <div class="col-md-3">
+                <button class="float-right btn btn-link" v-on:click="edit(item)">
+                    <h4>
+                    <font-awesome-icon icon="pencil-alt" />
+                    </h4>
+                </button>
+              </div>
+          </div>
         </li>
     </ul>
     <div class="card-body">
@@ -18,10 +33,10 @@
             </div>
         </div>
     </div>
-</div>
 </template>
 
 <script>
+import _ from 'lodash'
 import DiagnosisDisplay from './DiagnosisDisplay.vue'
 import DiagnosisForm from './DiagnosisForm.vue'
 import SubrecordModal from '../../SubrecordModal.vue'
@@ -49,16 +64,10 @@ export default {
                 formInstance: formInstance,
                 saveMethod: function(){
                     var http = new Http();
-                    return http.save('diagnosis', formInstance).then(function(x){
+                    return http.save(panel.modelName, formInstance).then(function(x){
                         panel.episode.diagnosis.push(x);
                     });
                 },
-                deleteMethod: function(){
-                    var http = new Http();
-                    return http.save('', formInstance).then(function(x){
-                        panel.episode.diagnosis.push(x);
-                    });
-                }
             },
             {
                 height: "auto",
@@ -83,7 +92,14 @@ export default {
                 deleteMethod: function(){
                     var http = new Http();
                     return http.delete(panel.modelName, formInstance.id).then(function(){
-                        panel.items = panel.items.filter(item => item.id !== formInstance.id);
+                        // mutating lists is hard...
+                        // https://vuejs.org/v2/guide/list.html
+                        if(panel.items.length === 1){
+                            panel.items.pop()
+                        }
+                        else{
+                            panel.items = panel.items.filter(item => item.id !== formInstance.id);
+                        }
                     });
                 }
             },

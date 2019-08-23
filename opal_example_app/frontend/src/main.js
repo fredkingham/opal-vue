@@ -9,6 +9,17 @@ import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue)
 
 
+// Font awesome
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faPencilAlt, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+library.add(faPencilAlt)
+library.add(faPlus)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+
+
 // Modal
 Vue.use(VModal, {
   dynamic: true,

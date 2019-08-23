@@ -1,14 +1,12 @@
 <template>
-  <b-container fluid>
-    <b-row>
-    <b-col sm="3">
+  <div class="row">
+      <div class="col-sm-3">
         <label class="control-label">{{ displayName }}</label>
-    </b-col>
-    <b-col sm="9">
+      </div>
+      <div class="col-sm-9">
         <input type="date" :value="fieldValue" @blur="updateInput($event.target.value)" class="form-control" />
-    </b-col>
-    </b-row>
-  </b-container>
+      </div>
+  </div>
 </template>
 <script>
 var DATE_FORMAT = 'DD/MM/YYYY';

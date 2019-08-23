@@ -1,5 +1,5 @@
 <template>
-    <div class="row">
+   <div>
         <text-input v-model="formInstance.first_name" display-name="First name">
         </text-input>
         <date-input v-model="formInstance.date_of_birth" display-name="Date of birth">
