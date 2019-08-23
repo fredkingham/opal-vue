@@ -25,13 +25,6 @@
           </div>
         </li>
     </ul>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-sm">
-                <button class="btn btn-primary" v-on:click="add()">Add</button>
-            </div>
-            </div>
-        </div>
     </div>
 </template>
 

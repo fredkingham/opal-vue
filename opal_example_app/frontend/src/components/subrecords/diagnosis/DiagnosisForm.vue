@@ -13,7 +13,7 @@ import DateInput from '../../forms/DateInput.vue'
 
 export default {
   name: 'DiagnosisForm',
-  props: ["formInstance", "lookup_list"],
+  props: ["formInstance"],
   components: {
       TextInput, DateInput
   }
