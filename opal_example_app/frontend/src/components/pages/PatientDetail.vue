@@ -1,15 +1,12 @@
 <template>
-  <div id="app" class="container-fluid">
-      <div v-if="patient" class="row">
-          <div class="col-sm">
-            <DemographicsPanel :patient=patient />
-          </div>
-          <div class="col-sm">
-            <DiagnosisPanel :episode=episode />
-          </div>
-      </div>
-    <modals-container/>
-  </div>
+    <div v-if="patient" class="row">
+        <div class="col-sm">
+        <DemographicsPanel :patient=patient />
+        </div>
+        <div class="col-sm">
+        <DiagnosisPanel :episode=episode />
+        </div>
+    </div>
 </template>
 
 
@@ -30,13 +27,15 @@ export default {
     var patient = null;
     var episode = null;
     return {
-        patient: patient
+        patient: patient,
+        episode: episode
+
     }
   },
   created(){
    var self = this;
-   var http = new Http("/");
-   http.getOne("patient", 1).then(function(x){
+   var http = new Http();
+   http.getOne("patient", this.$route.params.id).then(function(x){
     self.patient = x;
     self.episode = Object.values(x.episodes)[0]
     if(self.patient.detail == "Authentication credentials were not provided."){

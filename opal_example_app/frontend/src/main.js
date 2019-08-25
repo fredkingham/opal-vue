@@ -5,6 +5,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VModal from 'vue-js-modal'
 import VueRouter from 'vue-router'
 import PatientDetail from '@/components/pages/PatientDetail.vue'
+import PatientList from '@/components/pages/PatientList.vue'
 
 
 import BootstrapVue from 'bootstrap-vue'
@@ -30,7 +31,8 @@ const router = new VueRouter({
   mode: 'history',
   base: __dirname,
   routes: [
-    { path: '/', component: PatientDetail },
+    { path: '/', component: PatientList, name: "PatientList" },
+    { path: '/patient/:id', component: PatientDetail, name: "PatientDetail" },
   ]
 })
 

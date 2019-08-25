@@ -1,40 +1,14 @@
 
 <template>
-  <div id="app" class="container-fluid">
+  <div id="app">
       <router-view class="view"></router-view>
     <modals-container/>
   </div>
 </template>
 
 <script>
-/* eslint-disable */
-import PatientDetail from './components/pages/PatientDetail.vue'
-import Http from '@/opal/http.js'
-
-
 export default {
-  name: 'app',
-  components: {
-    PatientDetail
-  },
-  data: function(){
-    var patient = null;
-    var episode = null;
-    return {
-        patient: patient
-    }
-  },
-  created(){
-   var self = this;
-   var http = new Http("/");
-   http.getOne("patient", 1).then(function(x){
-    self.patient = x;
-    self.episode = Object.values(x.episodes)[0]
-    if(self.patient.detail == "Authentication credentials were not provided."){
-        alert('logged out');
-    }
-   });
-  }
+  name: 'app'
 }
 </script>
 

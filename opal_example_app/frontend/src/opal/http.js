@@ -30,6 +30,14 @@ class Http{
     });
   }
 
+  get(someUrl){
+    return fetch(someUrl).then(function(response) {
+      if(response.status === 401){
+        alert('you need to log in dude')
+      }
+      return response.json();
+    })
+  }
   getUrl(modelName, id){
     if(id){
       return BASE_URL + modelName + "/" + id + "/";
@@ -37,12 +45,8 @@ class Http{
     return BASE_URL + modelName + "/";
   }
   getOne(modelName, id) {
-    return fetch(this.getUrl(modelName, id)).then(function(response) {
-      if(response.status === 401){
-        alert('you need to log in dude')
-      }
-      return response.json();
-    })
+    let url = this.getUrl(modelName, id);
+    return this.get(url);
   }
   save(modelName, values){
     var method = "POST";
