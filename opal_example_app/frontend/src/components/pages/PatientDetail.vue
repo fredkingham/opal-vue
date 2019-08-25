@@ -1,21 +1,30 @@
-
 <template>
   <div id="app" class="container-fluid">
-      <router-view class="view"></router-view>
+      <div v-if="patient" class="row">
+          <div class="col-sm">
+            <DemographicsPanel :patient=patient />
+          </div>
+          <div class="col-sm">
+            <DiagnosisPanel :episode=episode />
+          </div>
+      </div>
     <modals-container/>
   </div>
 </template>
 
+
 <script>
 /* eslint-disable */
-import PatientDetail from './components/pages/PatientDetail.vue'
+import DemographicsPanel from '../subrecords/demographics/DemographicsPanel.vue'
+import DiagnosisPanel from '../subrecords/diagnosis/DiagnosisPanel.vue'
 import Http from '@/opal/http.js'
 
 
 export default {
-  name: 'app',
+  name: 'PatientDetail',
   components: {
-    PatientDetail
+    DemographicsPanel,
+    DiagnosisPanel
   },
   data: function(){
     var patient = null;
