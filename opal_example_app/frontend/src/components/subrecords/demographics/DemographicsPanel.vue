@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-header">
             <h4>
-                Demographics
+                {{ schema.get('demographics').display_name }}
                 <button class="float-right btn btn-link" v-on:click="edit(item)">
                     <h4>
                     <font-awesome-icon icon="pencil-alt" />
@@ -21,6 +21,7 @@ import DemographicsDisplay from './DemographicsDisplay.vue'
 import DemographicsForm from './DemographicsForm.vue'
 import SubrecordModal from '../../SubrecordModal.vue'
 import Http from '@/opal/http.js'
+import schema from '@/opal/schema.js'
 import _ from 'lodash'
 
 export default {
@@ -30,7 +31,8 @@ export default {
       return {
           formComponent: DemographicsForm,
           item: this.patient.demographics[0],
-          modelName: "demographics"
+          modelName: "demographics",
+          schema: schema
       }
   },
   methods: {
@@ -41,11 +43,10 @@ export default {
             SubrecordModal,
             {
                 SubrecordForm: this.formComponent,
-                modalName: this.modelName,
+                modelName: this.modelName,
                 formInstance: formInstance,
                 saveMethod: function(){
-                    var http = new Http();
-                    return http.save(panel.modelName, formInstance).then(function(x){
+                    return Http.save(panel.modelName, formInstance).then(function(x){
                         Object.assign(panel.patient.demographics[0], x)
                     });
                 }

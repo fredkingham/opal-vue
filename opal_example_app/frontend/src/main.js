@@ -6,6 +6,7 @@ import VModal from 'vue-js-modal'
 import VueRouter from 'vue-router'
 import PatientDetail from '@/components/pages/PatientDetail.vue'
 import PatientList from '@/components/pages/PatientList.vue'
+import schema from '@/opal/schema.js'
 
 
 import BootstrapVue from 'bootstrap-vue'
@@ -28,7 +29,6 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 
 const router = new VueRouter({
-  mode: 'history',
   base: __dirname,
   routes: [
     { path: '/', component: PatientList, name: "PatientList" },
@@ -38,16 +38,18 @@ const router = new VueRouter({
 
 
 // Modal
-Vue.use(VModal, {
-  dynamic: true,
-  injectModalsContainer: true,
-})
+  Vue.use(VModal, {
+    dynamic: true,
+    injectModalsContainer: true,
+  })
 
 Vue.config.productionTip = false
 
 
-new Vue({
-  router,
-  el: '#app',
-  render: h => h(App),
-})
+schema.load().then(function(){
+  new Vue({
+    router,
+    el: '#app',
+    render: h => h(App),
+  })
+});

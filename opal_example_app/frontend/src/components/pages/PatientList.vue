@@ -33,8 +33,7 @@ export default {
   },
   created(){
    var self = this;
-   var http = new Http();
-   http.get("/api/v0.1/patientlist/all_patients/").then(function(x){
+   Http.get("/api/v0.1/patientlist/all_patients/").then(function(x){
     self.object_list = x;
    });
   }

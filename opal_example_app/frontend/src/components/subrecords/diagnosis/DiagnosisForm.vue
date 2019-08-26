@@ -1,9 +1,9 @@
 <template>
     <div class="container-fluid">
-        <date-input v-model="formInstance.date_of_diagnosis" display-name="Date of Diagnosis">
-        </date-input>
-        <text-input v-model="formInstance.condition" :lookup_list="['cough', 'fever']" display-name="Condition">
+        <text-input field_name="diagnosis.condition" v-model="formInstance.condition" :lookup_list="['cough', 'fever']" display-name="Condition">
         </text-input>
+        <date-input field_name="diagnosis.date_of_diagnosis" v-model="formInstance.date_of_diagnosis">
+        </date-input>
     </div>
 </template>
 

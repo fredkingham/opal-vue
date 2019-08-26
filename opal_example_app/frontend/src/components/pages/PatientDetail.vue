@@ -34,8 +34,7 @@ export default {
   },
   created(){
    var self = this;
-   var http = new Http();
-   http.getOne("patient", this.$route.params.id).then(function(x){
+   Http.getOne("patient", this.$route.params.id).then(function(x){
     self.patient = x;
     self.episode = Object.values(x.episodes)[0]
     if(self.patient.detail == "Authentication credentials were not provided."){

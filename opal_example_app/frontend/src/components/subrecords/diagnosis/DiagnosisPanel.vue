@@ -2,7 +2,7 @@
     <div class="card">
     <div class="card-header">
         <h4>Diagnosis
-            <button class="float-right btn btn-link" v-on:click="edit(item)">
+            <button class="float-right btn btn-link" v-on:click="add()">
                 <h4>
                 <font-awesome-icon icon="plus" />
                 </h4>
@@ -34,6 +34,7 @@ import DiagnosisDisplay from './DiagnosisDisplay.vue'
 import DiagnosisForm from './DiagnosisForm.vue'
 import SubrecordModal from '../../SubrecordModal.vue'
 import Http from '@/opal/http.js'
+import schema from '@/opal/schema.js'
 
 export default {
   name: 'DiagnosisPanel',
@@ -42,7 +43,8 @@ export default {
       return {
           formComponent: DiagnosisForm,
           items: this.episode.diagnosis,
-          modelName: "diagnosis"
+          modelName: "diagnosis",
+          schema: schema
       }
   },
   methods: {
@@ -53,11 +55,10 @@ export default {
             SubrecordModal,
             {
                 SubrecordForm: this.formComponent,
-                modalName: this.modelName,
+                modelName: this.modelName,
                 formInstance: formInstance,
                 saveMethod: function(){
-                    var http = new Http();
-                    return http.save(panel.modelName, formInstance).then(function(x){
+                    return Http.save(panel.modelName, formInstance).then(function(x){
                         panel.episode.diagnosis.push(x);
                     });
                 },
@@ -74,17 +75,15 @@ export default {
             SubrecordModal,
             {
                 SubrecordForm: this.formComponent,
-                modalName: this.modelName,
+                modelName: this.modelName,
                 formInstance: formInstance,
                 saveMethod: function(){
-                    var http = new Http();
-                    return http.save(panel.modelName, formInstance).then(function(x){
+                    return Http.save(panel.modelName, formInstance).then(function(x){
                         Object.assign(item, x)
                     });
                 },
                 deleteMethod: function(){
-                    var http = new Http();
-                    return http.delete(panel.modelName, formInstance.id).then(function(){
+                    return Http.delete(panel.modelName, formInstance.id).then(function(){
                         // mutating lists is hard...
                         // https://vuejs.org/v2/guide/list.html
                         if(panel.items.length === 1){

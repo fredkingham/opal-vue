@@ -1,7 +1,7 @@
 <template>
     <ModalBase>
         <template v-slot:header>
-            <h5 class="modal-title">{{ modalName }}</h5>
+            <h5 class="modal-title">{{ subrecordSchema.displayName }}</h5>
         </template>
         <template v-slot:body>
             <component :is="SubrecordForm" :formInstance=formInstance></component>
@@ -17,18 +17,24 @@
 <script>
 
 import ModalBase from './ModalBase.vue'
+import schema from '@/opal/schema.js'
 
 export default {
   name: 'SubrecordModal',
   props: [
       "SubrecordForm",
-      "modalName",
+      "modelName",
       "formInstance",
       "saveMethod",
       "deleteMethod",
   ],
   components: {
       ModalBase,
+  },
+  data: function(){
+      return {
+          subrecordSchema: schema.get(this.modelName)
+      }
   },
   methods: {
       save: function(){

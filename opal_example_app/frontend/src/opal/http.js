@@ -2,11 +2,7 @@ let BASE_URL = '/api/v0.1/'
 
 
 class Http{
-  constructor(){
-    this.headers = this.getHeaders();
-  }
-
-  getCookie() {
+  static getCookie() {
     var name = "XSRF-TOKEN"
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -23,14 +19,14 @@ class Http{
     return cookieValue;
   }
 
-  getHeaders(){
+  static getHeaders(){
     return new Headers({
         'X-XSRF-TOKEN': this.getCookie(),
         'Content-Type': 'application/json'
     });
   }
 
-  get(someUrl){
+  static get(someUrl){
     return fetch(someUrl).then(function(response) {
       if(response.status === 401){
         alert('you need to log in dude')
@@ -38,17 +34,17 @@ class Http{
       return response.json();
     })
   }
-  getUrl(modelName, id){
+  static getUrl(modelName, id){
     if(id){
       return BASE_URL + modelName + "/" + id + "/";
     }
     return BASE_URL + modelName + "/";
   }
-  getOne(modelName, id) {
+  static getOne(modelName, id) {
     let url = this.getUrl(modelName, id);
     return this.get(url);
   }
-  save(modelName, values){
+  static save(modelName, values){
     var method = "POST";
 
     if(values.id){
@@ -58,7 +54,7 @@ class Http{
       method: method,
       credentials: 'include',
       body: JSON.stringify(values),
-      headers: this.headers
+      headers: this.getHeaders()
     }
 
     return fetch(this.getUrl(modelName, values.id), fetchArgs).then(function(response) {
@@ -67,11 +63,11 @@ class Http{
       alert("Unable to send! " + x);
     });
   }
-  delete(modelName, id){
+  static delete(modelName, id){
     var fetchArgs = {
       method: "DELETE",
       credentials: 'include',
-      headers: this.headers
+      headers: this.getHeaders()
     }
     return fetch(this.getUrl(modelName, id), fetchArgs).then(function(response) {
       return response.json();

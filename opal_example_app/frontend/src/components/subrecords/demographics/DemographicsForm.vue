@@ -1,8 +1,8 @@
 <template>
    <div>
-        <text-input v-model="formInstance.first_name" display-name="First name">
+        <text-input v-model="formInstance.first_name" field_name="demographics.first_name">
         </text-input>
-        <date-input v-model="formInstance.date_of_birth" display-name="Date of birth">
+        <date-input v-model="formInstance.date_of_birth" field_name="demographics.date_of_birth">
         </date-input>
     </div>
 </template>
