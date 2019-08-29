@@ -12,12 +12,11 @@ class Schema{
   get(key){
     return cache[key];
   }
-  fieldLookup(key){
-    var splitted = key.split(".")
-    var modelSchema = this.get(splitted[0]);
-    var fieldSchema = _.find(modelSchema.fields, {name: splitted[1]})
+  fieldLookup(subrecord_name, field_name){
+    var modelSchema = this.get(subrecord_name);
+    var fieldSchema = _.find(modelSchema.fields, {name: field_name})
     if(!fieldSchema){
-      alert("unable to find " + key);
+      alert("unable to find " + subrecord_name + " " + field_name);
     }
     return _.cloneDeep(fieldSchema);
   }

@@ -6,17 +6,17 @@ export default{
     props: [
       "lookup_list",
       "title",
-      "max_length",
       "default",
-      "field_name",
       "value",
-      "form_instance"
+      "form_instance",
+      "field",
+      "subrecord"
     ],
     data: function(){
         var form = this;
         var schemaLookup;
-        if(this.field_name){
-            schemaLookup = schema.fieldLookup(this.field_name);
+        if(this.subrecord && this.field){
+            schemaLookup = schema.fieldLookup(this.subrecord, this.field);
         }
         else{
           schemaLookup = {};
@@ -31,5 +31,11 @@ export default{
             }
         });
         return result;
+    },
+    methods: {
+      updateInput(newValue) {
+          this.value[this.field] = newValue;
+          this.$emit('input', this.value);
+      }
     }
 }
