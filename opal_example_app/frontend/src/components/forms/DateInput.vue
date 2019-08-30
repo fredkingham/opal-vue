@@ -21,7 +21,7 @@ export default {
   mixins: [BaseInput],
   data: function(){
       return {
-          fieldValue: DateUtil.toMoment(this.value[this.field]).format("YYYY-MM-DD")
+          fieldValue: DateUtil.toMoment(this.value.data[this.field]).format("YYYY-MM-DD")
       }
   },
   methods: {

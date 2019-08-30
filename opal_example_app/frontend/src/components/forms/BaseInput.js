@@ -30,11 +30,15 @@ export default{
                 result[prop + "_local"] = schemaLookup[prop];
             }
         });
+
+        if(!result.lookup_list_local){
+          result.lookup_list_local = [];
+        }
         return result;
     },
     methods: {
       updateInput(newValue) {
-          this.value[this.field] = newValue;
+          this.value.data[this.field] = newValue;
           this.$emit('input', this.value);
       }
     }

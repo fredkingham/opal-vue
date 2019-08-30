@@ -37,16 +37,16 @@ export default {
   },
   methods: {
     edit (item) {
-        var formInstance = _.cloneDeep(item);
+        var formData = _.cloneDeep(item);
         var panel = this;
         this.$modal.show(
             SubrecordModal,
             {
                 SubrecordForm: this.formComponent,
                 modelName: this.modelName,
-                formInstance: formInstance,
+                formData: formData,
                 saveMethod: function(){
-                    return Http.save(panel.modelName, formInstance).then(function(x){
+                    return Http.save(panel.modelName, formData).then(function(x){
                         Object.assign(panel.patient.demographics[0], x)
                     });
                 }

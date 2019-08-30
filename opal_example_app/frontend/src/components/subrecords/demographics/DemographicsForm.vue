@@ -1,6 +1,6 @@
 <template>
    <div>
-        <text-input v-model="formInstanc" subrecord="demographics" field="first_name">
+        <text-input v-model="formInstance" subrecord="demographics" field="first_name">
         </text-input>
         <date-input v-model="formInstance" subrecord="demographics" field="date_of_birth">
         </date-input>

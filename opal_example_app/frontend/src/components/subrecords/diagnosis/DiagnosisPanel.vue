@@ -49,16 +49,16 @@ export default {
   },
   methods: {
     add () {
-        var formInstance = {episode_id: this.episode.id};
+        var formData = {episode_id: this.episode.id};
         var panel = this;
         this.$modal.show(
             SubrecordModal,
             {
                 SubrecordForm: this.formComponent,
                 modelName: this.modelName,
-                formInstance: formInstance,
+                formData: formData,
                 saveMethod: function(){
-                    return Http.save(panel.modelName, formInstance).then(function(x){
+                    return Http.save(panel.modelName, formData).then(function(x){
                         panel.episode.diagnosis.push(x);
                     });
                 },
@@ -69,28 +69,28 @@ export default {
         )
     },
     edit (item) {
-        var formInstance = _.cloneDeep(item);
+        var formData = _.cloneDeep(item);
         var panel = this;
         this.$modal.show(
             SubrecordModal,
             {
                 SubrecordForm: this.formComponent,
                 modelName: this.modelName,
-                formInstance: formInstance,
-                saveMethod: function(){
-                    return Http.save(panel.modelName, formInstance).then(function(x){
+                formData: formData,
+                saveMethod: function(formData){
+                    return Http.save(panel.modelName, formData).then(function(x){
                         Object.assign(item, x)
                     });
                 },
                 deleteMethod: function(){
-                    return Http.delete(panel.modelName, formInstance.id).then(function(){
+                    return Http.delete(panel.modelName, formData.id).then(function(){
                         // mutating lists is hard...
                         // https://vuejs.org/v2/guide/list.html
                         if(panel.items.length === 1){
                             panel.items.pop()
                         }
                         else{
-                            panel.items = panel.items.filter(item => item.id !== formInstance.id);
+                            panel.items = panel.items.filter(item => item.id !== formData.id);
                         }
                     });
                 }

@@ -24,7 +24,7 @@ export default {
   props: [
       "SubrecordForm",
       "modelName",
-      "formInstance",
+      "formData",
       "saveMethod",
       "deleteMethod",
   ],
@@ -33,7 +33,11 @@ export default {
   },
   data: function(){
       return {
-          subrecordSchema: schema.get(this.modelName)
+          subrecordSchema: schema.get(this.modelName),
+          formInstance: {
+              data: this.formData,
+              errors: {}
+          }
       }
   },
   methods: {
