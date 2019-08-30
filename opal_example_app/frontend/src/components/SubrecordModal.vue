@@ -35,7 +35,6 @@ export default {
       ModalBase,
   },
   data: function(){
-      var a = schema.get(this.modelName);
       return {
           subrecordSchema: schema.get(this.modelName),
           formInstance: new FormInstance(this.formData, this.validators)
@@ -49,7 +48,6 @@ export default {
                 modal.$emit('close');
             })
           }
-          var a = this.formInstance;
       },
       deleteInstance: function(){
           var modal = this;

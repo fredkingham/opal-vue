@@ -1,7 +1,7 @@
 <template>
   <div class="row">
       <div class="col-md-8 offset-md-2">
-        <router-link v-for="object in object_list" :key="object.id" :to="{ name: 'PatientDetail', params: {id: object.id}}">
+        <router-link class="patient-list-card" v-for="object in object_list" :key="object.id" :to="{ name: 'PatientDetail', params: {id: object.id}}">
         <div class="card">
             <div v-for="item in object.demographics" :key="item.id" class="col-sm">
                 <h5 class="card-title">{{ item.first_name }} {{ item.surname }}</h5>

@@ -1,0 +1,7 @@
+a.patient-list-card{
+    color: black;
+    &:hover{
+        color: lighten(black, 20%);
+        text-decoration: none;
+    }
+}
