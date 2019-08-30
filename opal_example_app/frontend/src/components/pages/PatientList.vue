@@ -18,12 +18,12 @@
 
 
 <script>
-import DiagnosisDisplay from '../subrecords/diagnosis/DiagnosisDisplay.vue'
+import subrecords from '@/components/subrecords'
 import Http from '@/opal/http.js'
 export default {
   name: 'PatientList',
   components: {
-    DiagnosisDisplay
+    DiagnosisDisplay: subrecords.diagnosis.display
   },
   data: function(){
     var patients = null;

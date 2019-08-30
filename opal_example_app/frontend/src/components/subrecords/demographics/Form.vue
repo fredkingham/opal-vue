@@ -1,6 +1,7 @@
 <template>
    <div>
-        <text-input v-model="formInstance" subrecord="demographics" field="first_name" required=True />
+        <text-input v-model="formInstance" subrecord="demographics" field="first_name" />
+        <text-input v-model="formInstance" subrecord="demographics" field="surname" />
         <date-input v-model="formInstance" subrecord="demographics" field="date_of_birth" />
     </div>
 </template>
@@ -11,7 +12,7 @@ import DateInput from '../../forms/DateInput.vue'
 
 
 export default {
-  name: 'DemographicsForm',
+  name: 'Form',
   props: ["formInstance"],
   components: {
       TextInput, DateInput

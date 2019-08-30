@@ -6,7 +6,7 @@
 <script>
 
 export default {
-    name: "DiagnosisDisplay",
+    name: "Display",
     props: ["item"]
 }
 </script>

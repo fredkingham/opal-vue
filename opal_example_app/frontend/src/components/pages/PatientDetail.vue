@@ -11,17 +11,15 @@
 
 
 <script>
-/* eslint-disable */
-import DemographicsPanel from '../subrecords/demographics/DemographicsPanel.vue'
-import DiagnosisPanel from '../subrecords/diagnosis/DiagnosisPanel.vue'
+import subrecords from '@/components/subrecords'
 import Http from '@/opal/http.js'
 
 
 export default {
   name: 'PatientDetail',
   components: {
-    DemographicsPanel,
-    DiagnosisPanel
+    DemographicsPanel: subrecords.demographics.panel,
+    DiagnosisPanel: subrecords.diagnosis.panel
   },
   data: function(){
     var patient = null;

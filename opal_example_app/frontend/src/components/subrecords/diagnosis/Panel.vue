@@ -13,7 +13,7 @@
         <li v-for="item in items" class="list-group-item" v-bind:key="item.id">
           <div class="row">
               <div class="col-md-9">
-                <DiagnosisDisplay :item=item ></DiagnosisDisplay>
+                <component :is="display" :item="item" />
               </div>
               <div class="col-md-3">
                 <button class="float-right btn btn-link" v-on:click="edit(item)">
@@ -30,21 +30,20 @@
 
 <script>
 import _ from 'lodash'
-import DiagnosisDisplay from './DiagnosisDisplay.vue'
-import DiagnosisForm from './DiagnosisForm.vue'
+import subrecords from '@/components/subrecords'
 import SubrecordModal from '../../SubrecordModal.vue'
 import Http from '@/opal/http.js'
 import schema from '@/opal/schema.js'
 
 export default {
-  name: 'DiagnosisPanel',
+  name: 'Panel',
   props: ["episode"],
   data: function(){
       return {
-          formComponent: DiagnosisForm,
           items: this.episode.diagnosis,
           modelName: "diagnosis",
-          schema: schema
+          schema: schema,
+          display: subrecords.diagnosis.display
       }
   },
   methods: {
@@ -54,7 +53,7 @@ export default {
         this.$modal.show(
             SubrecordModal,
             {
-                SubrecordForm: this.formComponent,
+                SubrecordForm: subrecords.diagnosis.form,
                 modelName: this.modelName,
                 formData: formData,
                 saveMethod: function(){
@@ -74,7 +73,7 @@ export default {
         this.$modal.show(
             SubrecordModal,
             {
-                SubrecordForm: this.formComponent,
+                SubrecordForm: subrecords.diagnosis.form,
                 modelName: this.modelName,
                 formData: formData,
                 saveMethod: function(formData){
@@ -100,9 +99,6 @@ export default {
             }
         )
     },
-  },
-  components: {
-      DiagnosisDisplay
   }
 }
 </script>
