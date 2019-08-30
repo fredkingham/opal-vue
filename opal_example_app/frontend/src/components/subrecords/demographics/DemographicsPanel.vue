@@ -20,6 +20,7 @@
 import DemographicsDisplay from './DemographicsDisplay.vue'
 import DemographicsForm from './DemographicsForm.vue'
 import SubrecordModal from '../../SubrecordModal.vue'
+import dateOfBirthValidation from '@/validators/date_of_birth_validation.js'
 import Http from '@/opal/http.js'
 import schema from '@/opal/schema.js'
 import _ from 'lodash'
@@ -45,6 +46,7 @@ export default {
                 SubrecordForm: this.formComponent,
                 modelName: this.modelName,
                 formData: formData,
+                validators: [dateOfBirthValidation],
                 saveMethod: function(){
                     return Http.save(panel.modelName, formData).then(function(x){
                         Object.assign(panel.patient.demographics[0], x)

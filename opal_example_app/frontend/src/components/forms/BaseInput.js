@@ -1,6 +1,7 @@
 /* eslint-disable */
 import schema from "@/opal/schema.js"
 import _ from 'lodash'
+import ErrorDisplay from '@/components/forms/ErrorDisplay.vue'
 
 export default{
     props: [
@@ -8,9 +9,10 @@ export default{
       "title",
       "default",
       "value",
-      "form_instance",
       "field",
-      "subrecord"
+      "subrecord",
+      "validators",
+      "required"
     ],
     data: function(){
         var form = this;
@@ -36,10 +38,16 @@ export default{
         }
         return result;
     },
+    components: {
+      ErrorDisplay
+    },
     methods: {
       updateInput(newValue) {
-          this.value.data[this.field] = newValue;
-          this.$emit('input', this.value);
+        this.value.data[this.field] = newValue;
+        if(this.value.errors[this.field]){
+            this.value.validate();
+        }
+        this.$emit('input', this.value);
       }
     }
 }

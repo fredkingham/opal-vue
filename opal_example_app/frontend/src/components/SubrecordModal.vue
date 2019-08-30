@@ -1,24 +1,26 @@
 <template>
-    <ModalBase>
-        <template v-slot:header>
-            <h5 class="modal-title">{{ subrecordSchema.displayName }}</h5>
-        </template>
-        <template v-slot:body>
-            <component :is="SubrecordForm" :formInstance=formInstance></component>
-        </template>
-        <template v-slot:footer>
-            <button v-if="deleteMethod" type="button" class="btn btn-danger" @click="deleteInstance()">Delete</button>
-            <button type="button" class="btn btn-primary" @click="save()">Save</button>
-            <button type="button" class="btn btn-secondary" @click="$emit('close')">Close</button>
-        </template>
-    </ModalBase>
+    <form @submit.prevent="save">
+        <ModalBase>
+            <template v-slot:header>
+                <h5 class="modal-title">{{ subrecordSchema.display_name }}</h5>
+            </template>
+            <template v-slot:body>
+                <component :is="SubrecordForm" :formInstance=formInstance></component>
+            </template>
+            <template v-slot:footer>
+                <button v-if="deleteMethod" type="button" class="btn btn-danger" @click="deleteInstance()">Delete</button>
+                <input type="submit" class="btn btn-primary" value="Save" />
+                <button type="button" class="btn btn-secondary" @click="$emit('close')">Close</button>
+            </template>
+        </ModalBase>
+    </form>
 </template>
 
 <script>
 
 import ModalBase from './ModalBase.vue'
 import schema from '@/opal/schema.js'
-
+import FormInstance from '@/opal/form_instance.js'
 export default {
   name: 'SubrecordModal',
   props: [
@@ -27,25 +29,27 @@ export default {
       "formData",
       "saveMethod",
       "deleteMethod",
+      "validators"
   ],
   components: {
       ModalBase,
   },
   data: function(){
+      var a = schema.get(this.modelName);
       return {
           subrecordSchema: schema.get(this.modelName),
-          formInstance: {
-              data: this.formData,
-              errors: {}
-          }
+          formInstance: new FormInstance(this.formData, this.validators)
       }
   },
   methods: {
       save: function(){
           var modal = this;
-          this.saveMethod().then(function(){
-              modal.$emit('close');
-          })
+          if(!this.formInstance.hasError()){
+            this.saveMethod().then(function(){
+                modal.$emit('close');
+            })
+          }
+          var a = this.formInstance;
       },
       deleteInstance: function(){
           var modal = this;
