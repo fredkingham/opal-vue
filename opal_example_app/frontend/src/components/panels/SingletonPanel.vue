@@ -18,21 +18,20 @@
 
 <script>
 import subrecords from '@/components/subrecords'
-import SubrecordModal from '../../SubrecordModal.vue'
+import SubrecordModal from '@/components/modals/SubrecordModal.vue'
 import dateOfBirthValidation from '@/validators/date_of_birth_validation.js'
 import Http from '@/opal/http.js'
 import schema from '@/opal/schema.js'
 import _ from 'lodash'
 
 export default {
-  name: 'Panel',
-  props: ["patient"],
+  name: 'SingletonPanel',
+  props: ["parent", "modelName"],
   data: function(){
       return {
-          item: this.patient.demographics[0],
-          modelName: "demographics",
+          item: this.parent[this.modelName][0],
           schema: schema,
-          display: subrecords.demographics.display
+          display: subrecords[this.modelName].display
       }
   },
   methods: {
@@ -42,13 +41,13 @@ export default {
         this.$modal.show(
             SubrecordModal,
             {
-                SubrecordForm: subrecords.demographics.form,
+                SubrecordForm: subrecords[panel.modelName].form,
                 modelName: this.modelName,
                 formData: formData,
                 validators: [dateOfBirthValidation],
                 saveMethod: function(){
-                    return Http.save(panel.modelName, formData).then(function(x){
-                        Object.assign(panel.patient.demographics[0], x)
+                    return Http.saveSubrecord(panel.modelName, formData).then(function(x){
+                        Object.assign(panel.parent[panel.modelName][0], x)
                     });
                 }
             },
@@ -60,3 +59,4 @@ export default {
   }
 }
 </script>
+

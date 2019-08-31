@@ -1,7 +1,7 @@
 <template>
     <div class="card">
     <div class="card-header">
-        <h4>Diagnosis
+        <h4>{{ schema.get(modelName).display_name }}
             <button class="float-right btn btn-link" v-on:click="add()">
                 <h4>
                 <font-awesome-icon icon="plus" />
@@ -31,34 +31,44 @@
 <script>
 import _ from 'lodash'
 import subrecords from '@/components/subrecords'
-import SubrecordModal from '../../SubrecordModal.vue'
+import SubrecordModal from '@/components/modals/SubrecordModal.vue'
 import Http from '@/opal/http.js'
 import schema from '@/opal/schema.js'
 
 export default {
-  name: 'Panel',
-  props: ["episode"],
+  name: 'NonSingletonPanel',
+  props: ["parent", "modelName"],
   data: function(){
       return {
-          items: this.episode.diagnosis,
-          modelName: "diagnosis",
+          items: this.parent[this.modelName],
           schema: schema,
-          display: subrecords.diagnosis.display
+          display: subrecords[this.modelName].display
       }
   },
   methods: {
+    isPatient(){
+        // this isn't nice.
+        return !!this.parent["episodes"]
+    },
     add () {
-        var formData = {episode_id: this.episode.id};
+        var formData;
+
+        if(this.isPatient()){
+            formData = {patient_id: this.parent.id}
+        }
+        else{
+            formData = {episode_id: this.parent.id};
+        }
         var panel = this;
         this.$modal.show(
             SubrecordModal,
             {
-                SubrecordForm: subrecords.diagnosis.form,
+                SubrecordForm: subrecords[panel.modelName].form,
                 modelName: this.modelName,
                 formData: formData,
                 saveMethod: function(){
-                    return Http.save(panel.modelName, formData).then(function(x){
-                        panel.episode.diagnosis.push(x);
+                    return Http.saveSubrecord(panel.modelName, formData).then(function(x){
+                        panel[panel.parent][panel.modelName].push(x);
                     });
                 },
             },
@@ -77,12 +87,12 @@ export default {
                 modelName: this.modelName,
                 formData: formData,
                 saveMethod: function(formData){
-                    return Http.save(panel.modelName, formData).then(function(x){
+                    return Http.saveSubrecord(panel.modelName, formData).then(function(x){
                         Object.assign(item, x)
                     });
                 },
                 deleteMethod: function(){
-                    return Http.delete(panel.modelName, formData.id).then(function(){
+                    return Http.deleteSubrecord(panel.modelName, formData.id).then(function(){
                         // mutating lists is hard...
                         // https://vuejs.org/v2/guide/list.html
                         if(panel.items.length === 1){

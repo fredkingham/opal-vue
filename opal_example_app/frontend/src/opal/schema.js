@@ -5,7 +5,7 @@ var cache = null;
 
 class Schema{
   load(){
-    return Http.get("/api/v0.1/record/").then(function(x){
+    return Http.getUrl("/api/v0.1/record/").then(function(x){
       cache = x;
     })
   }

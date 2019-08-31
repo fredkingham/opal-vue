@@ -1,25 +1,24 @@
 <template>
     <div v-if="patient" class="row">
         <div class="col-sm">
-        <DemographicsPanel :patient=patient />
+        <Panel :parent=patient modelName="demographics" />
         </div>
         <div class="col-sm">
-        <DiagnosisPanel :episode=episode />
+        <Panel :parent=episode modelName="diagnosis" />
         </div>
     </div>
 </template>
 
 
 <script>
-import subrecords from '@/components/subrecords'
 import Http from '@/opal/http.js'
+import Panel from '@/components/panels/Panel.vue'
 
 
 export default {
   name: 'PatientDetail',
   components: {
-    DemographicsPanel: subrecords.demographics.panel,
-    DiagnosisPanel: subrecords.diagnosis.panel
+    Panel
   },
   data: function(){
     var patient = null;

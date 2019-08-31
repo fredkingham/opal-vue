@@ -26,7 +26,7 @@ class Http{
     });
   }
 
-  static get(someUrl){
+  static getUrl(someUrl){
     return fetch(someUrl).then(function(response) {
       if(response.status === 401){
         alert('you need to log in dude')
@@ -34,21 +34,19 @@ class Http{
       return response.json();
     })
   }
-  static getUrl(modelName, id){
+  static createUrl(modelName, id){
     if(id){
       return BASE_URL + modelName + "/" + id + "/";
     }
     return BASE_URL + modelName + "/";
   }
   static getOne(modelName, id) {
-    let url = this.getUrl(modelName, id);
-    return this.get(url);
+    let url = this.createUrl(modelName, id);
+    return this.getUrl(url);
   }
-  static save(modelName, values){
-    var method = "POST";
-
-    if(values.id){
-      method = "PUT"
+  static saveUrl(url, values, method){
+    if(!method){
+      method="POST"
     }
     var fetchArgs = {
       method: method,
@@ -57,19 +55,27 @@ class Http{
       headers: this.getHeaders()
     }
 
-    return fetch(this.getUrl(modelName, values.id), fetchArgs).then(function(response) {
+    return fetch(url, fetchArgs).then(function(response) {
       return response.json();
     }).catch(function(x){
       alert("Unable to send! " + x);
     });
   }
-  static delete(modelName, id){
+  static saveSubrecord(modelName, values){
+    var method = "POST";
+
+    if(values.id){
+      method = "PUT"
+    }
+    return this.saveUrl(this.createUrl(modelName, values.id), values, method);
+  }
+  static deleteSubrecord(modelName, id){
     var fetchArgs = {
       method: "DELETE",
       credentials: 'include',
       headers: this.getHeaders()
     }
-    return fetch(this.getUrl(modelName, id), fetchArgs).then(function(response) {
+    return fetch(this.createUrl(modelName, id), fetchArgs).then(function(response) {
       return response.json();
     }).catch(function(x){
       alert("Unable to send! " + x);

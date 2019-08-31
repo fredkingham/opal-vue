@@ -1,5 +1,5 @@
 <template>
-   <div>
+   <div class="container-fluid">
         <text-input v-model="formInstance" subrecord="demographics" field="first_name" />
         <text-input v-model="formInstance" subrecord="demographics" field="surname" />
         <date-input v-model="formInstance" subrecord="demographics" field="date_of_birth" />

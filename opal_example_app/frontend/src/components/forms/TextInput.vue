@@ -1,5 +1,5 @@
 <template>
-    <div class="row">
+    <div class="row py-2">
         <div class="col-sm-3">
             <label class="control-label">{{ title_local }}</label>
         </div>
@@ -8,7 +8,7 @@
             <datalist :id="listId" >
             <option v-for="optionValue in lookup_list_local" v-bind:key="optionValue" v-bind:value="optionValue" />
             </datalist>
-        </div>`
+        </div>
     </div>
 </template>
 <script>
