@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'bootstrap-scss/bootstrap.scss'
 import '@/assets/styles.scss'
 import VModal from 'vue-js-modal'
 import VueRouter from 'vue-router'
@@ -9,11 +8,6 @@ import PatientDetail from '@/components/pages/PatientDetail.vue'
 import PatientList from '@/components/pages/PatientList.vue'
 import AddPatient from '@/components/pages/AddPatient.vue'
 import schema from '@/opal/schema.js'
-
-
-import BootstrapVue from 'bootstrap-vue'
-
-Vue.use(BootstrapVue)
 
 
 Vue.use(VueRouter)
